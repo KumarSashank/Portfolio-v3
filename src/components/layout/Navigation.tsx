@@ -31,9 +31,9 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[1000] px-5 pt-5 md:px-8">
+      <nav className="fixed left-0 right-0 z-[1000] px-4 md:px-6" style={{ top: 0, paddingTop: '36px' }}>
         <div
-          className="section-shell panel relative flex items-center justify-between rounded-full px-6 py-3.5 md:px-8"
+          className="section-shell panel relative flex items-center justify-between rounded-full px-5 py-3 md:px-6"
           style={{
             background: scrolled ? 'rgba(8, 11, 18, 0.78)' : 'rgba(8, 11, 18, 0.52)',
             borderColor: scrolled ? 'var(--border-strong)' : 'var(--border)',
@@ -45,7 +45,7 @@ export default function Navigation() {
             style={{ width: 0 }}
           />
 
-          <a href="#hero" className="flex items-center gap-3 no-underline" aria-label="Go to top">
+          <a href="#hero" className="flex items-center gap-2.5 no-underline" aria-label="Go to top">
             <span
               className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(245,239,229,0.14)] bg-[rgba(255,255,255,0.03)] font-serif text-lg font-bold"
             >
@@ -59,7 +59,7 @@ export default function Navigation() {
             </div>
           </a>
 
-          <ul className="hidden list-none items-center gap-8 lg:flex">
+          <ul className="hidden list-none items-center gap-5 lg:flex">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
@@ -72,14 +72,14 @@ export default function Navigation() {
             ))}
           </ul>
 
-          <div className="hidden items-center gap-4 lg:flex">
-            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[rgba(245,239,229,0.45)]">
+          <div className="hidden items-center gap-3 lg:flex">
+            <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[rgba(245,239,229,0.45)]">
               Open to work
             </div>
             <MagneticButton strength={0.18}>
               <a
                 href="mailto:kumarsashank2003@gmail.com"
-                className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,92,53,0.35)] bg-accent px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-paper no-underline transition-transform duration-200 hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,92,53,0.35)] bg-accent px-4 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-paper no-underline transition-transform duration-200 hover:scale-[1.02]"
               >
                 Start a project
               </a>

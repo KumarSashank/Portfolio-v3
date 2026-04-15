@@ -199,12 +199,12 @@ export default function IllustratedWorkspace() {
   return (
     <div
       ref={rootRef}
-      className="absolute inset-0 flex items-center justify-end pr-12 pointer-events-none z-[1] max-md:justify-center max-md:pr-0"
+      className="relative flex items-center justify-end pointer-events-none z-[1] w-full max-w-[650px]"
     >
       <svg
         ref={svgRef}
         viewBox="0 0 600 600"
-        className="w-[min(50vw,600px)] h-auto max-md:w-[90vw] max-md:opacity-60"
+        className="w-full h-auto max-md:opacity-60"
         fill="none"
         stroke={PAPER}
         strokeWidth="1.2"
