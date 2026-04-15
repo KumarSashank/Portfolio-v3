@@ -1,0 +1,222 @@
+@import "tailwindcss";
+@source "../**/*.{ts,tsx}";
+
+:root {
+  --ink: #05070b;
+  --paper: #f5efe5;
+  --surface: #0b1018;
+  --surface-strong: #121826;
+  --accent: #ff5c35;
+  --gold: #d3b26c;
+  --sky: #83b7ff;
+  --mint: #7cf2c3;
+  --muted: #8f94a3;
+  --border: rgba(245, 239, 229, 0.12);
+  --border-strong: rgba(245, 239, 229, 0.2);
+  --glass: rgba(245, 239, 229, 0.05);
+  --glass-strong: rgba(245, 239, 229, 0.08);
+  --shadow: 0 40px 120px rgba(0, 0, 0, 0.45);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-accent: var(--accent);
+  --color-gold: var(--gold);
+  --color-sky: var(--sky);
+  --color-mint: var(--mint);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--ink);
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--paper);
+  font-family: var(--font-sans), sans-serif;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 92, 53, 0.16), transparent 28%),
+    radial-gradient(circle at 82% 22%, rgba(131, 183, 255, 0.12), transparent 24%),
+    radial-gradient(circle at 68% 72%, rgba(124, 242, 195, 0.08), transparent 20%),
+    linear-gradient(180deg, #05070b 0%, #070b13 42%, #05070b 100%);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
+  opacity: 0.45;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (pointer: fine) {
+  body,
+  a,
+  button {
+    cursor: none;
+  }
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+main {
+  position: relative;
+}
+
+section {
+  position: relative;
+  padding: 8rem 3rem;
+}
+
+.section-shell {
+  width: min(1320px, 100%);
+  margin: 0 auto;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  color: rgba(255, 92, 53, 0.9);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.section-label::before {
+  content: '';
+  width: 2.5rem;
+  height: 1px;
+  background: rgba(255, 92, 53, 0.45);
+}
+
+.panel {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--glass-strong) 0%, rgba(255, 255, 255, 0.02) 100%);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+}
+
+.panel-soft {
+  border: 1px solid rgba(245, 239, 229, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+}
+
+.surface-glow {
+  position: relative;
+}
+
+.surface-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 92, 53, 0.12), transparent 40%, rgba(131, 183, 255, 0.1));
+  opacity: 0;
+  transition: opacity 240ms ease;
+  pointer-events: none;
+}
+
+.surface-glow:hover::after {
+  opacity: 1;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.sr-only-focusable:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 900px) {
+  section {
+    padding: 5.5rem 1.5rem;
+  }
+
+  body::before {
+    background-size: 48px 48px;
+  }
+}
