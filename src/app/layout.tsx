@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Syne, DM_Mono, Fraunces } from 'next/font/google'
 import './globals.css'
+import { MotionPrefsProvider } from '@/lib/motion/prefs'
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
@@ -29,32 +30,34 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Kumar Sashank — Creative Engineer',
+  title: 'Kumar Sashank — AI Product Engineer',
   description:
-    'Creative engineer blending full-stack systems, AI prototyping, and motion-led interfaces into product experiences with cinematic polish.',
+    'AI Product Engineer building GenAI pipelines, agentic systems, and full-stack products. Founding engineer at EONVERSE, Masters at Wilfrid Laurier, IEEE-published researcher.',
   keywords: [
     'Kumar Sashank',
-    'creative engineer',
+    'AI Product Engineer',
+    'AI engineer Canada',
     'portfolio',
     'Next.js portfolio',
+    'GenAI engineer',
     'full-stack engineer',
-    'AI prototyping',
-    'interactive developer',
+    'founding engineer',
+    'new grad software engineer Canada',
   ],
   authors: [{ name: 'Kumar Sashank' }],
   creator: 'Kumar Sashank',
   openGraph: {
-    title: 'Kumar Sashank — Creative Engineer',
+    title: 'Kumar Sashank — AI Product Engineer',
     description:
-      'Product systems, immersive interfaces, research-led thinking, and selected engineering work by Kumar Sashank.',
+      'AI products, agentic pipelines, and research-grade engineering. Selected work by Kumar Sashank.',
     type: 'website',
     siteName: 'Kumar Sashank Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Kumar Sashank — Creative Engineer',
+    title: 'Kumar Sashank — AI Product Engineer',
     description:
-      'Portfolio showcasing interactive product engineering, AI experiments, and research-backed design thinking.',
+      'Portfolio showcasing AI product engineering, agentic systems, and research-backed shipped work.',
   },
 }
 
@@ -69,7 +72,7 @@ export default function RootLayout({
       className={`${syne.variable} ${dmMono.variable} ${fraunces.variable} antialiased`}
     >
       <body className="min-h-screen bg-ink text-paper">
-        {children}
+        <MotionPrefsProvider>{children}</MotionPrefsProvider>
       </body>
     </html>
   )

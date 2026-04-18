@@ -70,7 +70,7 @@ export default function Image() {
               <div style={{ fontSize: 16, letterSpacing: 4, textTransform: 'uppercase', color: 'rgba(245,239,229,0.56)' }}>
                 Kumar Sashank
               </div>
-              <div style={{ fontSize: 22 }}>Creative Engineer</div>
+              <div style={{ fontSize: 22 }}>AI Product Engineer</div>
             </div>
           </div>
           <div

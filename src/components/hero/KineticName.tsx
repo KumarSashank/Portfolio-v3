@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { T, Ease, Stag } from '@/lib/motion/tokens'
+import { useMotionPrefs } from '@/lib/motion/prefs'
 
 interface KineticNameProps {
   firstName: string
@@ -11,7 +13,7 @@ interface KineticNameProps {
 }
 
 /**
- * Premium fluid name entrance. Staggered reveal from the bottom 
+ * Premium fluid name entrance. Staggered reveal from the bottom
  * with an elegant magnetic/floating hover interaction.
  */
 export default function KineticName({
@@ -20,6 +22,7 @@ export default function KineticName({
   delay = 1.0,
 }: KineticNameProps) {
   const containerRef = useRef<HTMLHeadingElement>(null)
+  const { reducedMotion } = useMotionPrefs()
 
   useEffect(() => {
     const root = containerRef.current
@@ -27,7 +30,11 @@ export default function KineticName({
 
     const chars = Array.from(root.querySelectorAll<HTMLElement>('.kin-char'))
 
-    // Initial state
+    if (reducedMotion) {
+      gsap.set(chars, { yPercent: 0, opacity: 1, rotateX: 0 })
+      return
+    }
+
     gsap.set(chars, { yPercent: 120, opacity: 0, rotateX: -20 })
 
     const tl = gsap.timeline({ delay })
@@ -35,43 +42,34 @@ export default function KineticName({
       yPercent: 0,
       opacity: 1,
       rotateX: 0,
-      duration: 1.4,
-      ease: 'expo.out',
-      stagger: { amount: 0.8, from: 'start' },
+      duration: T.signature,
+      ease: Ease.outExpo,
+      stagger: { amount: chars.length * Stag.char * 2, from: 'start' },
     })
 
-    // Ambient floating
     const floatTl = gsap.timeline({ repeat: -1, yoyo: true })
     chars.forEach((c, i) => {
       floatTl.to(c, {
         y: '-=4',
-        duration: 3 + (i % 3) * 0.5,
+        duration: T.loopShort + (i % 3) * 0.5,
         ease: 'sine.inOut',
       }, i * 0.1)
     })
-    
-    // Magnetic Hover Effect
-    const onMouseMove = (e: MouseEvent) => {
-      const el = e.currentTarget as HTMLElement;
-      const rect = el.getBoundingClientRect();
-      const relX = e.clientX - rect.left;
-      const relY = e.clientY - rect.top;
-      
-      const xPercent = (relX / rect.width - 0.5) * 20; // max 10px move
-      const yPercent = (relY / rect.height - 0.5) * 20;
 
-      gsap.to(el, { 
-        x: xPercent, 
-        y: yPercent, 
-        duration: 0.4, 
-        ease: 'power2.out' 
-      });
-    };
+    const onMouseMove = (e: MouseEvent) => {
+      const el = e.currentTarget as HTMLElement
+      const rect = el.getBoundingClientRect()
+      const relX = e.clientX - rect.left
+      const relY = e.clientY - rect.top
+      const xPercent = (relX / rect.width - 0.5) * 20
+      const yPercent = (relY / rect.height - 0.5) * 20
+      gsap.to(el, { x: xPercent, y: yPercent, duration: T.quick, ease: Ease.outSoft })
+    }
 
     const onMouseLeave = (e: Event) => {
-      const el = e.currentTarget as HTMLElement;
-      gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.3)' });
-    };
+      const el = e.currentTarget as HTMLElement
+      gsap.to(el, { x: 0, y: 0, duration: T.grand, ease: Ease.elasticSoft })
+    }
 
     chars.forEach((c) => {
       c.addEventListener('mousemove', onMouseMove as unknown as EventListener)
@@ -87,7 +85,7 @@ export default function KineticName({
         gsap.killTweensOf(c)
       })
     }
-  }, [delay])
+  }, [delay, reducedMotion])
 
   const renderChars = (text: string, outline = false) =>
     Array.from(text).map((ch, i) => {

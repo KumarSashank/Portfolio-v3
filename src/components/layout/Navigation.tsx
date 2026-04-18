@@ -55,7 +55,7 @@ export default function Navigation() {
               <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-[rgba(245,239,229,0.5)]">
                 Kumar Sashank
               </div>
-              <div className="text-sm text-[rgba(245,239,229,0.82)]">Creative Engineer</div>
+              <div className="text-sm text-[rgba(245,239,229,0.82)]">AI Product Engineer</div>
             </div>
           </a>
 
