@@ -13,7 +13,7 @@ export default function Projects() {
   return (
     <section ref={sectionRef} id="projects">
       <div className="section-shell">
-        <div className="mb-14 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mb-[80px] lg:mb-[140px] flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between" style={{ marginBottom: 'clamp(80px, 10vh, 140px)' }}>
           <div>
             <div className="section-label" data-reveal="">
               Work
@@ -21,7 +21,7 @@ export default function Projects() {
             <h2
               data-reveal=""
               data-reveal-delay="1"
-              className="max-w-4xl text-balance text-[clamp(42px,6vw,88px)] font-bold leading-[0.94] tracking-[-0.05em]"
+              className="mt-6 lg:mt-8 max-w-4xl text-balance text-[clamp(42px,6vw,88px)] font-bold leading-[0.94] tracking-[-0.05em]"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               Selected projects where technical depth meets presentation, speed, and product sense.
@@ -31,7 +31,7 @@ export default function Projects() {
             href="https://github.com/KumarSashank"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent no-underline"
+            className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent no-underline transition-colors hover:text-paper"
             data-reveal=""
             data-reveal-delay="2"
           >
@@ -39,20 +39,22 @@ export default function Projects() {
           </a>
         </div>
 
-        <div className="space-y-10">
+        <div className="flex flex-col gap-[100px] lg:gap-[160px]">
           {featuredProjects.map((project, index) => (
             <article
               key={project.num}
-              className="panel overflow-hidden rounded-[34px] p-6 md:p-8"
+              className="group"
+              style={{ paddingTop: index > 0 ? 'clamp(40px, 5vh, 80px)' : '0' }}
               data-reveal=""
-              data-reveal-delay={Math.min(index + 1, 4)}
+              data-reveal-delay={Math.min(index * 0.15, 0.4)}
             >
-              <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+              <div className="grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]" style={{ gap: 'clamp(40px, 6vw, 100px)' }}>
                 <div style={{ order: index % 2 === 1 ? 2 : 1 }}>
                   <ProjectVisual project={project} />
                 </div>
+                
                 <div
-                  className="flex flex-col justify-between rounded-[28px] border border-[rgba(245,239,229,0.1)] bg-[rgba(255,255,255,0.03)] p-6 md:p-8"
+                  className="flex flex-col justify-center py-4 lg:py-8"
                   style={{ order: index % 2 === 1 ? 1 : 2 }}
                 >
                   <div>
@@ -75,67 +77,73 @@ export default function Projects() {
                     </div>
 
                     <h3
-                      className="mt-5 text-[clamp(34px,4vw,54px)] leading-[0.96] tracking-[-0.05em]"
+                      className="mt-8 text-[clamp(40px,5vw,64px)] leading-[0.96] tracking-[-0.05em] text-paper transition-colors group-hover:text-[rgba(255,255,255,0.9)]"
                       style={{ fontFamily: 'var(--font-serif)' }}
                     >
                       {project.title}
                     </h3>
-                    <p className="mt-5 text-base leading-8 text-[rgba(245,239,229,0.68)]">
+                    <p className="mt-6 text-[17px] leading-[1.8] text-[rgba(245,239,229,0.68)]">
                       {project.description}
                     </p>
 
-                    <div className="mt-6 rounded-[24px] border border-[rgba(245,239,229,0.1)] bg-[rgba(5,7,11,0.3)] p-5">
-                      <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[rgba(245,239,229,0.42)]">
-                        Outcome
+                    <div className="mt-10 pt-8 border-t border-[rgba(245,239,229,0.08)]">
+                      <div className="flex items-center gap-4">
+                        <div className="h-[1px] w-6 bg-[rgba(245,239,229,0.15)] transition-all duration-300 group-hover:w-10"></div>
+                        <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[rgba(245,239,229,0.42)]">
+                          Outcome
+                        </div>
                       </div>
-                      <p className="mt-3 text-sm leading-7 text-[rgba(245,239,229,0.76)]">
+                      <p className="mt-5 text-[15px] leading-[1.8] text-[rgba(245,239,229,0.76)]">
                         {project.outcome}
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-7">
+                  <div className="mt-12 pt-8 border-t border-[rgba(245,239,229,0.08)]">
                     <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[rgba(245,239,229,0.42)]">
                       Role + stack
                     </div>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      <span className="rounded-full border border-[rgba(245,239,229,0.12)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-paper">
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      <span className="rounded-[4px] border border-[rgba(255,255,255,0.15)] bg-[rgba(255,255,255,0.03)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-paper">
                         {project.role}
                       </span>
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-[rgba(245,239,229,0.12)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-muted"
+                          className="rounded-[4px] border border-[rgba(245,239,229,0.08)] bg-[rgba(245,239,229,0.015)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-muted transition-colors hover:border-[rgba(245,239,229,0.2)]"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                    <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                    <div className="mt-10 grid gap-3 sm:grid-cols-3">
                       {project.metrics.map((metric) => (
                         <div
                           key={metric}
-                          className="rounded-[20px] border border-[rgba(245,239,229,0.1)] bg-[rgba(255,255,255,0.02)] p-4"
+                          className="border-l border-[rgba(245,239,229,0.15)] pl-4 py-1"
                         >
-                          <div className="text-sm leading-6 text-[rgba(245,239,229,0.76)]">{metric}</div>
+                          <div className="text-[13px] leading-relaxed text-[rgba(245,239,229,0.76)]">{metric}</div>
                         </div>
                       ))}
                     </div>
 
-                    <div className="mt-7">
+                    <div className="mt-12" style={{ marginTop: '60px' }}>
                       {project.slug ? (
                         <Link
                           href={`/work/${project.slug}`}
-                          className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,92,53,0.35)] px-5 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-accent no-underline transition-colors hover:bg-[rgba(255,92,53,0.08)]"
+                          className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,92,53,0.4)] px-6 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-accent no-underline transition-all hover:bg-[rgba(255,92,53,0.1)] hover:gap-4"
                           data-cursor="View Case"
                         >
                           View case study
+                          <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                            <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                         </Link>
                       ) : (
                         <a
                           href="#contact"
-                          className="inline-flex items-center gap-2 rounded-full border border-[rgba(245,239,229,0.14)] px-5 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-paper no-underline transition-colors hover:border-[rgba(245,239,229,0.24)]"
+                          className="inline-flex items-center gap-2 rounded-full border border-[rgba(245,239,229,0.14)] px-6 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-paper no-underline transition-all hover:border-[rgba(245,239,229,0.24)]"
                         >
                           Ask about this work
                         </a>
@@ -148,38 +156,38 @@ export default function Projects() {
           ))}
         </div>
 
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+        <div className="grid lg:grid-cols-3" style={{ marginTop: 'clamp(120px, 15vh, 200px)', gap: 'clamp(40px, 4vw, 80px)' }}>
           {archiveProjects.map((project, index) => (
             <article
               key={project.num}
-              className="panel-soft surface-glow rounded-[28px] p-6"
+              className="group border-t border-[rgba(245,239,229,0.12)] pt-8 pb-4 transition-colors hover:border-[rgba(245,239,229,0.3)]"
               data-reveal=""
-              data-reveal-delay={Math.min(index + 1, 3)}
+              data-reveal-delay={Math.min(index * 0.15, 0.4)}
             >
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[rgba(245,239,229,0.42)]">
                   {project.num}
                 </span>
                 <span
-                  className="h-3 w-3 rounded-full"
+                  className="h-2 w-2 rounded-full opacity-60 transition-opacity group-hover:opacity-100"
                   style={{ background: project.accent }}
                   aria-hidden
                 />
               </div>
               <h3
-                className="mt-5 text-[30px] leading-[1.02] tracking-[-0.04em]"
+                className="mt-6 text-[28px] md:text-[34px] leading-[1.1] tracking-[-0.03em] text-paper transition-colors group-hover:text-white"
                 style={{ fontFamily: 'var(--font-serif)' }}
               >
                 {project.title}
               </h3>
-              <p className="mt-4 text-sm leading-7 text-[rgba(245,239,229,0.66)]">
+              <p className="mt-5 text-[15px] leading-[1.7] text-[rgba(245,239,229,0.66)]">
                 {project.description}
               </p>
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="mt-8 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-[rgba(245,239,229,0.12)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-muted"
+                    className="rounded-[4px] border border-[rgba(245,239,229,0.08)] bg-[rgba(245,239,229,0.015)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-muted transition-colors hover:border-[rgba(245,239,229,0.2)]"
                   >
                     {tag}
                   </span>
