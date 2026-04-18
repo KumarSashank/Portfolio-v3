@@ -7,9 +7,12 @@ export default function Contact() {
   const sectionRef = useScrollReveal()
 
   return (
-    <section ref={sectionRef} id="contact" style={{ padding: 0 }}>
+    <section ref={sectionRef} id="contact" style={{ paddingTop: 'clamp(120px, 15vh, 250px)' }}>
       {/* ── Vibrant orange block ── */}
-      <div className="relative overflow-hidden bg-accent px-6 py-20 md:px-12 md:py-28 lg:py-32">
+      <div 
+        className="relative overflow-hidden bg-accent px-6 md:px-12"
+        style={{ paddingTop: 'clamp(120px, 18vh, 240px)', paddingBottom: 'clamp(120px, 18vh, 240px)' }}
+      >
         {/* Noise grain */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.045]"
@@ -24,20 +27,20 @@ export default function Contact() {
         <div className="section-shell relative z-[1] text-center">
           {/* Label */}
           <div
-            className="mb-6 inline-flex items-center justify-center gap-3 font-mono text-[0.65rem] uppercase tracking-[0.24em] text-[rgba(5,7,11,0.55)]"
+            className="mb-8 lg:mb-12 inline-flex items-center justify-center gap-4 font-mono text-[0.7rem] uppercase tracking-[0.3em] text-[rgba(5,7,11,0.55)]"
             data-reveal=""
           >
-            <span className="block h-px w-10 bg-[rgba(5,7,11,0.35)]" />
+            <span className="block h-px w-12 bg-[rgba(5,7,11,0.35)]" />
             Let&apos;s Connect
-            <span className="block h-px w-10 bg-[rgba(5,7,11,0.35)]" />
+            <span className="block h-px w-12 bg-[rgba(5,7,11,0.35)]" />
           </div>
 
           {/* Big headline */}
           <h2
-            className="font-bold leading-[0.92] tracking-[-0.035em] text-ink"
+            className="font-bold leading-[0.9] tracking-[-0.04em] text-ink"
             style={{
               fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(48px, 8vw, 110px)',
+              fontSize: 'clamp(56px, 10vw, 150px)',
             }}
             data-reveal=""
             data-reveal-delay="1"
@@ -48,7 +51,7 @@ export default function Contact() {
               style={{
                 fontStyle: 'italic',
                 color: 'transparent',
-                WebkitTextStroke: '1.5px var(--ink)',
+                WebkitTextStroke: '2px var(--ink)',
               }}
             >
               it.
@@ -57,7 +60,8 @@ export default function Contact() {
 
           {/* CTAs */}
           <div
-            className="mt-14 flex flex-wrap items-center justify-center gap-4"
+            className="flex flex-wrap items-center justify-center gap-4 md:gap-6"
+            style={{ marginTop: 'min(100px, 10vh)' }}
             data-reveal=""
             data-reveal-delay="2"
           >
