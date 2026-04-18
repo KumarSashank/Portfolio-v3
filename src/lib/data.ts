@@ -163,6 +163,7 @@ export interface Project {
   description: string
   tags: string[]
   slug?: string
+  caseStudyUrl?: string
   link?: string
   year: string
   role: string
@@ -180,7 +181,8 @@ export const projects: Project[] = [
       'A Spotify-Wrapped-style year-in-review for LeetCode developers. I shipped the product, wrote the architecture post, and let the thing grow on its own.',
     tags: ['Next.js', 'Analytics', 'Public product'],
     slug: 'leetwrap',
-    link: 'https://www.leetwrap.com/',
+    caseStudyUrl: 'https://medium.com/@kumarsashank2003/we-built-leetwrap-then-it-broke-heres-what-we-learned-c9583dfeeec6',
+    link: 'https://leetwrap.com',
     year: '2024',
     role: 'Sole builder \u00b7 design, engineering, infra',
     type: 'Shipped public product',

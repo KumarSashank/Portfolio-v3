@@ -185,15 +185,15 @@ export default function CustomCursor() {
           height: ringDims.height,
           borderRadius: ringDims.radius,
           borderColor: morph === 'default' ? 'rgba(255,59,0,0.55)' : 'var(--accent)',
+          backgroundColor: morph === 'pill' ? 'var(--accent)' : 'transparent',
           transition:
-            'width 0.28s cubic-bezier(0.22,1,0.36,1), height 0.28s cubic-bezier(0.22,1,0.36,1), border-radius 0.28s cubic-bezier(0.22,1,0.36,1), border-color 0.22s',
-          mixBlendMode: 'difference',
+            'width 0.28s cubic-bezier(0.22,1,0.36,1), height 0.28s cubic-bezier(0.22,1,0.36,1), border-radius 0.28s cubic-bezier(0.22,1,0.36,1), border-color 0.22s, background-color 0.22s',
+          mixBlendMode: morph === 'pill' ? 'normal' : 'difference',
         }}
       >
         {morph === 'pill' && label && (
           <span
-            className="font-mono text-[9px] uppercase tracking-[0.14em] text-paper whitespace-nowrap"
-            style={{ mixBlendMode: 'difference' }}
+            className="font-mono text-[9px] uppercase tracking-[0.14em] text-ink whitespace-nowrap"
           >
             {label}
           </span>

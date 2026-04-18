@@ -50,7 +50,19 @@ export default function Projects() {
             >
               <div className="grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]" style={{ gap: 'clamp(40px, 6vw, 100px)' }}>
                 <div style={{ order: index % 2 === 1 ? 2 : 1 }}>
-                  <ProjectVisual project={project} />
+                  {project.link ? (
+                    <a 
+                      href={project.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="block transform transition-transform duration-500 hover:scale-[1.02]" 
+                      data-cursor="View Live"
+                    >
+                      <ProjectVisual project={project} />
+                    </a>
+                  ) : (
+                    <ProjectVisual project={project} />
+                  )}
                 </div>
                 
                 <div
@@ -80,7 +92,13 @@ export default function Projects() {
                       className="mt-8 text-[clamp(40px,5vw,64px)] leading-[0.96] tracking-[-0.05em] text-paper transition-colors group-hover:text-[rgba(255,255,255,0.9)]"
                       style={{ fontFamily: 'var(--font-serif)' }}
                     >
-                      {project.title}
+                      {project.link ? (
+                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="hover:underline underline-offset-[6px] decoration-[rgba(245,239,229,0.3)]">
+                          {project.title}
+                        </a>
+                      ) : (
+                        project.title
+                      )}
                     </h3>
                     <p className="mt-6 text-[17px] leading-[1.8] text-[rgba(245,239,229,0.68)]">
                       {project.description}
@@ -129,7 +147,20 @@ export default function Projects() {
                     </div>
 
                     <div className="mt-12" style={{ marginTop: '60px' }}>
-                      {project.slug ? (
+                      {project.caseStudyUrl ? (
+                        <a
+                          href={project.caseStudyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,92,53,0.4)] px-6 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-accent no-underline transition-all hover:bg-[rgba(255,92,53,0.1)] hover:gap-4"
+                          data-cursor="View Case"
+                        >
+                          View case study
+                          <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                            <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </a>
+                      ) : project.slug ? (
                         <Link
                           href={`/work/${project.slug}`}
                           className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,92,53,0.4)] px-6 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-accent no-underline transition-all hover:bg-[rgba(255,92,53,0.1)] hover:gap-4"
@@ -217,9 +248,18 @@ function ProjectVisual({ project }: { project: Project }) {
         {project.year}
       </div>
 
+      {project.slug === 'leetwrap' && <LeetWrapVisual />}
       {project.slug === 'ai-exam-portal' && <ExamPortalVisual accent={project.accent} />}
       {project.slug === 'icho' && <IchoVisual accent={project.accent} />}
       {project.slug === 'decentralized-file-sharing' && <FileSharingVisual accent={project.accent} />}
+    </div>
+  )
+}
+
+function LeetWrapVisual() {
+  return (
+    <div className="absolute inset-3 overflow-hidden rounded-[22px] border border-[rgba(245,239,229,0.15)] md:inset-5">
+      <img src="/work/leetwrap.png" alt="LeetWrap Interface" className="h-full w-full object-cover object-center" />
     </div>
   )
 }
