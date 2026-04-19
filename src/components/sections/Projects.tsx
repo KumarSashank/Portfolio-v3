@@ -2,10 +2,14 @@
 
 import Link from 'next/link'
 import { projects, type Project } from '@/lib/data'
+import { getAllSlugs } from '@/lib/case-studies'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const featuredProjects = projects.slice(0, 3)
 const archiveProjects = projects.slice(3)
+
+/** Only render internal <Link> for slugs that have an actual case study page */
+const validCaseStudySlugs = new Set(getAllSlugs())
 
 export default function Projects() {
   const sectionRef = useScrollReveal()
@@ -160,7 +164,7 @@ export default function Projects() {
                             <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         </a>
-                      ) : project.slug ? (
+                      ) : project.slug && validCaseStudySlugs.has(project.slug) ? (
                         <Link
                           href={`/work/${project.slug}`}
                           className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,92,53,0.4)] px-6 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-accent no-underline transition-all hover:bg-[rgba(255,92,53,0.1)] hover:gap-4"

@@ -14,65 +14,70 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
   }, [onComplete])
 
   useEffect(() => {
-    const hasVisited = window.sessionStorage.getItem('portfolio-preloaded') === 'true'
-    
-    // If the user has already seen the preloader this session, skip the animation
-    // instantly on soft forward/back navigations to prevent GSAP stalling in BFCache.
-    if (hasVisited) {
+    // FAILSAFE 1: If it ever gets stuck beyond 3.5 seconds, forcefully rip it off the DOM.
+    const failsafe = setTimeout(() => {
+      console.warn("GSAP Preloader timed out. Forcing bypass.")
       completeRef.current()
-      return
-    }
+    }, 3500)
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const loadDuration = reducedMotion ? 0.3 : 1.4
     const exitDelay = reducedMotion ? 0 : 0.18
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        window.sessionStorage.setItem('portfolio-preloaded', 'true')
-        completeRef.current()
-      },
-    })
-
-    const obj = { val: 0 }
-    tl.to(obj, {
-      val: 100,
-      duration: loadDuration,
-      ease: 'power2.out',
-      onUpdate: () => setProgress(Math.round(obj.val)),
-    })
-
-    if (logoRef.current) {
-      const paths = logoRef.current.querySelectorAll('path')
-      paths.forEach((path) => {
-        const length = path.getTotalLength()
-        gsap.set(path, {
-          strokeDasharray: length,
-          strokeDashoffset: length,
-        })
-        tl.to(
-          path,
-          {
-            strokeDashoffset: 0,
-            duration: loadDuration * 0.85,
-            ease: 'power2.out',
-          },
-          0
-        )
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          clearTimeout(failsafe)
+          completeRef.current()
+        },
       })
-    }
 
-    tl.to(containerRef.current, {
-      clipPath: 'inset(0 0 100% 0 round 24px)',
-      yPercent: -8,
-      opacity: 0,
-      duration: reducedMotion ? 0.18 : 0.65,
-      ease: 'power3.inOut',
-      delay: exitDelay,
-    })
+      const obj = { val: 0 }
+      tl.to(obj, {
+        val: 100,
+        duration: loadDuration,
+        ease: 'power2.out',
+        onUpdate: () => setProgress(Math.round(obj.val)),
+      })
+
+      if (logoRef.current) {
+        const paths = logoRef.current.querySelectorAll('path')
+        paths.forEach((path) => {
+          let length = 0
+          try {
+            length = path.getTotalLength()
+          } catch (e) {
+            length = 100 // fallback if SVG API fails
+          }
+          gsap.set(path, {
+            strokeDasharray: length,
+            strokeDashoffset: length,
+          })
+          tl.to(
+            path,
+            {
+              strokeDashoffset: 0,
+              duration: loadDuration * 0.85,
+              ease: 'power2.out',
+            },
+            0
+          )
+        })
+      }
+
+      tl.to(containerRef.current, {
+        clipPath: 'inset(0 0 100% 0 round 24px)',
+        yPercent: -8,
+        opacity: 0,
+        duration: reducedMotion ? 0.18 : 0.65,
+        ease: 'power3.inOut',
+        delay: exitDelay,
+      })
+    }, containerRef)
 
     return () => {
-      tl.kill()
+      clearTimeout(failsafe)
+      ctx.revert()
     }
   }, [])
 

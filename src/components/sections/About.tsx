@@ -9,7 +9,7 @@ import { useGSAP } from '@gsap/react'
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const cardsRef = useRef<(HTMLDivElement | null)>([])
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([])
   const sectionRef = useScrollReveal()
 
   const items = [

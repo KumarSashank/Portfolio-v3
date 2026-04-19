@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback, useLayoutEffect } from 'react'
 
 import GSAPProvider from '@/components/providers/GSAPProvider'
 import SmoothScroll from '@/components/providers/SmoothScroll'
@@ -18,12 +18,35 @@ import Achievements from '@/components/sections/Achievements'
 import Contact from '@/components/sections/Contact'
 
 export default function HomeExperience() {
+  // Both server AND client start with false → no hydration mismatch.
   const [loaded, setLoaded] = useState(false)
+
+  // useLayoutEffect fires synchronously AFTER hydration but BEFORE
+  // the browser paints. If we've already visited, we flip loaded=true
+  // before the Preloader's own useEffect ever fires, so its GSAP
+  // timeline never starts and it unmounts cleanly on the very first
+  // committed render.
+  useLayoutEffect(() => {
+    try {
+      if (window.localStorage.getItem('portfolio-preloaded') === 'true') {
+        setLoaded(true)
+      }
+    } catch {
+      // localStorage blocked — let preloader play
+    }
+  }, [])
+
+  const handlePreloaderComplete = useCallback(() => {
+    try {
+      window.localStorage.setItem('portfolio-preloaded', 'true')
+    } catch { /* localStorage unavailable */ }
+    setLoaded(true)
+  }, [])
 
   return (
     <GSAPProvider>
       <SmoothScroll>
-        {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
+        {!loaded && <Preloader onComplete={handlePreloaderComplete} />}
         <a href="#content" className="sr-only-focusable">
           Skip to content
         </a>
@@ -45,3 +68,4 @@ export default function HomeExperience() {
     </GSAPProvider>
   )
 }
+
