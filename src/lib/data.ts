@@ -164,6 +164,7 @@ export interface Project {
   tags: string[]
   slug?: string
   caseStudyUrl?: string
+  githubUrl?: string
   link?: string
   year: string
   role: string
@@ -197,6 +198,8 @@ export const projects: Project[] = [
       'An agent that plans BigQuery jobs, runs them, and synthesizes insights for pre-clinical research teams. Built for the specific shape of scientific questions, not generic search.',
     tags: ['Agents', 'BigQuery', 'RAG', 'Python'],
     slug: 'ai-co-investigator',
+    link: 'https://youtu.be/IwU3c38XRoo',
+    githubUrl: 'https://github.com/KumarSashank/Co-Investigator',
     year: '2024',
     role: 'Architect + Engineer',
     type: 'Research agent',

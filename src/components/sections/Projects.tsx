@@ -146,7 +146,7 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    <div className="mt-12" style={{ marginTop: '60px' }}>
+                    <div className="mt-12 flex flex-wrap items-center gap-4" style={{ marginTop: '60px' }}>
                       {project.caseStudyUrl ? (
                         <a
                           href={project.caseStudyUrl}
@@ -171,7 +171,23 @@ export default function Projects() {
                             <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         </Link>
-                      ) : (
+                      ) : null}
+
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-[rgba(245,239,229,0.14)] px-6 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-paper no-underline transition-all hover:border-[rgba(245,239,229,0.24)]"
+                        >
+                          View source code
+                          <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                            <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </a>
+                      )}
+
+                      {!project.slug && !project.caseStudyUrl && !project.githubUrl && (
                         <a
                           href="#contact"
                           className="inline-flex items-center gap-2 rounded-full border border-[rgba(245,239,229,0.14)] px-6 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-paper no-underline transition-all hover:border-[rgba(245,239,229,0.24)]"
@@ -249,9 +265,22 @@ function ProjectVisual({ project }: { project: Project }) {
       </div>
 
       {project.slug === 'leetwrap' && <LeetWrapVisual />}
+      {project.slug === 'ai-co-investigator' && <AiCoVisual />}
       {project.slug === 'ai-exam-portal' && <ExamPortalVisual accent={project.accent} />}
       {project.slug === 'icho' && <IchoVisual accent={project.accent} />}
       {project.slug === 'decentralized-file-sharing' && <FileSharingVisual accent={project.accent} />}
+    </div>
+  )
+}
+
+function AiCoVisual() {
+  return (
+    <div className="absolute inset-3 overflow-hidden rounded-[22px] border border-[rgba(245,239,229,0.15)] md:inset-5">
+      {/* 
+        This is wired to look for /work/ai-co-investigator.png. 
+        Once you drop an image in that path in your public folder, it will instantly render here! 
+      */}
+      <img src="/work/ai-co-investigator.png" alt="AI Co-Investigator Interface" className="h-full w-full object-cover object-center" />
     </div>
   )
 }
