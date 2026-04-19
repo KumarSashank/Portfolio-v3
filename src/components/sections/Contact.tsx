@@ -70,7 +70,7 @@ export default function Contact() {
               href={`https://mail.google.com/mail/?view=cm&fs=1&to=${contactData.email}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 rounded-full bg-ink px-10 py-5 font-mono text-[13px] md:text-[14px] uppercase tracking-[0.18em] text-paper no-underline transition-transform duration-300 hover:scale-[1.05]"
+              className="inline-flex items-center gap-2.5 rounded-full bg-ink px-10 py-[16px] md:py-[18px] font-mono text-[11px] uppercase tracking-[0.18em] text-paper no-underline transition-opacity duration-200 hover:opacity-80"
             >
               Send Email
             </a>
@@ -78,7 +78,7 @@ export default function Contact() {
               href={contactData.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border-2 border-[rgba(5,7,11,0.5)] px-10 py-5 font-mono text-[13px] md:text-[14px] uppercase tracking-[0.18em] text-ink no-underline transition-all duration-300 hover:scale-[1.05] hover:border-ink hover:text-ink cursor-pointer"
+              className="inline-flex items-center rounded-full border-[1.5px] border-[rgba(5,7,11,0.5)] px-10 py-[16px] md:py-[18px] font-mono text-[11px] uppercase tracking-[0.18em] text-ink no-underline transition-opacity duration-200 hover:opacity-60"
             >
               LinkedIn
             </a>
@@ -86,7 +86,7 @@ export default function Contact() {
               href={contactData.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border-2 border-[rgba(5,7,11,0.5)] px-10 py-5 font-mono text-[13px] md:text-[14px] uppercase tracking-[0.18em] text-ink no-underline transition-all duration-300 hover:scale-[1.05] hover:border-ink hover:text-ink cursor-pointer"
+              className="inline-flex items-center rounded-full border-[1.5px] border-[rgba(5,7,11,0.5)] px-10 py-[16px] md:py-[18px] font-mono text-[11px] uppercase tracking-[0.18em] text-ink no-underline transition-opacity duration-200 hover:opacity-60"
             >
               GitHub
             </a>

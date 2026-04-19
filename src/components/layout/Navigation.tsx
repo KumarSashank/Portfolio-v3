@@ -78,8 +78,10 @@ export default function Navigation() {
             </div>
             <MagneticButton strength={0.18}>
               <a
-                href="mailto:kumarsashank2003@gmail.com"
-                className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,92,53,0.35)] bg-accent px-4 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-paper no-underline transition-transform duration-200 hover:scale-[1.02]"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=kumarsashank2003@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,92,53,0.35)] bg-accent px-6 py-[10px] font-mono text-[10px] uppercase tracking-[0.12em] text-paper no-underline transition-transform duration-200 hover:scale-[1.03]"
               >
                 Start a project
               </a>
@@ -143,8 +145,10 @@ export default function Navigation() {
               Available for internships, freelance, and product builds
             </div>
             <a
-              href="mailto:kumarsashank2003@gmail.com"
-              className="inline-flex rounded-full border border-[rgba(255,92,53,0.35)] bg-accent px-5 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-paper no-underline"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=kumarsashank2003@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex rounded-full border border-[rgba(255,92,53,0.35)] bg-accent px-8 py-[14px] font-mono text-[11px] uppercase tracking-[0.16em] text-paper no-underline"
               onClick={() => setMobileOpen(false)}
             >
               Start a project
