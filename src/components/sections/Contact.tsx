@@ -12,6 +12,7 @@ export default function Contact() {
       <div 
         className="relative overflow-hidden bg-accent px-6 md:px-12"
         style={{ paddingTop: 'clamp(120px, 18vh, 240px)', paddingBottom: 'clamp(120px, 18vh, 240px)' }}
+        data-cursor-color="white"
       >
         {/* Noise grain */}
         <div
@@ -66,8 +67,10 @@ export default function Contact() {
             data-reveal-delay="2"
           >
             <a
-              href={`mailto:${contactData.email}`}
-              className="inline-flex items-center gap-2.5 rounded-full bg-ink px-8 py-4 font-mono text-[11px] uppercase tracking-[0.18em] text-paper no-underline transition-opacity duration-200 hover:opacity-80"
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${contactData.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 rounded-full bg-ink px-10 py-5 font-mono text-[13px] md:text-[14px] uppercase tracking-[0.18em] text-paper no-underline transition-transform duration-300 hover:scale-[1.05]"
             >
               Send Email
             </a>
@@ -75,7 +78,7 @@ export default function Contact() {
               href={contactData.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border-[1.5px] border-[rgba(5,7,11,0.5)] px-8 py-4 font-mono text-[11px] uppercase tracking-[0.18em] text-ink no-underline transition-opacity duration-200 hover:opacity-60"
+              className="inline-flex items-center rounded-full border-2 border-[rgba(5,7,11,0.5)] px-10 py-5 font-mono text-[13px] md:text-[14px] uppercase tracking-[0.18em] text-ink no-underline transition-all duration-300 hover:scale-[1.05] hover:border-ink hover:text-ink cursor-pointer"
             >
               LinkedIn
             </a>
@@ -83,7 +86,7 @@ export default function Contact() {
               href={contactData.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border-[1.5px] border-[rgba(5,7,11,0.5)] px-8 py-4 font-mono text-[11px] uppercase tracking-[0.18em] text-ink no-underline transition-opacity duration-200 hover:opacity-60"
+              className="inline-flex items-center rounded-full border-2 border-[rgba(5,7,11,0.5)] px-10 py-5 font-mono text-[13px] md:text-[14px] uppercase tracking-[0.18em] text-ink no-underline transition-all duration-300 hover:scale-[1.05] hover:border-ink hover:text-ink cursor-pointer"
             >
               GitHub
             </a>

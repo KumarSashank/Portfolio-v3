@@ -36,6 +36,7 @@ export default function CustomCursor() {
   const ringRef = useRef<HTMLDivElement>(null)
   const [label, setLabel] = useState('')
   const [morph, setMorph] = useState<Morph>('default')
+  const [customColor, setCustomColor] = useState<string | null>(null)
 
   useEffect(() => {
     if (!canShowCursor) return
@@ -116,6 +117,14 @@ export default function CustomCursor() {
     const onOver = (e: Event) => {
       const target = e.target as HTMLElement | null
       if (!target?.closest) return
+
+      const colorTarget = target.closest<HTMLElement>('[data-cursor-color]')
+      if (colorTarget) {
+        setCustomColor(colorTarget.getAttribute('data-cursor-color'))
+      } else {
+        setCustomColor(null)
+      }
+
       const interactive = target.closest<HTMLElement>(INTERACTIVE_SELECTOR)
       if (!interactive) return
       const cursorLabel = interactive.getAttribute('data-cursor')
@@ -166,6 +175,13 @@ export default function CustomCursor() {
         ? { width: 54, height: 54, radius: 999 }
         : { width: 34, height: 34, radius: 999 }
 
+  const isWhite = customColor === 'white'
+  const effectiveBgColor = isWhite ? '#ffffff' : 'var(--accent)'
+  const effectiveBorderColor = morph === 'default'
+    ? (isWhite ? 'rgba(255,255,255,0.8)' : 'rgba(255,59,0,0.55)')
+    : (isWhite ? '#ffffff' : 'var(--accent)')
+  const effectiveBlendMode = isWhite ? 'normal' : 'difference'
+
   return (
     <div
       ref={rootRef}
@@ -174,8 +190,14 @@ export default function CustomCursor() {
     >
       <div
         ref={dotRef}
-        className="absolute top-0 left-0 rounded-full bg-accent"
-        style={{ width: 6, height: 6, mixBlendMode: 'difference' }}
+        className="absolute top-0 left-0 rounded-full"
+        style={{ 
+          width: 6, 
+          height: 6, 
+          mixBlendMode: effectiveBlendMode,
+          backgroundColor: effectiveBgColor,
+          transition: 'background-color 0.22s, mix-blend-mode 0.22s'
+        }}
       />
       <div
         ref={ringRef}
@@ -184,11 +206,11 @@ export default function CustomCursor() {
           width: ringDims.width,
           height: ringDims.height,
           borderRadius: ringDims.radius,
-          borderColor: morph === 'default' ? 'rgba(255,59,0,0.55)' : 'var(--accent)',
-          backgroundColor: morph === 'pill' ? 'var(--accent)' : 'transparent',
+          borderColor: effectiveBorderColor,
+          backgroundColor: morph === 'pill' ? effectiveBgColor : 'transparent',
           transition:
-            'width 0.28s cubic-bezier(0.22,1,0.36,1), height 0.28s cubic-bezier(0.22,1,0.36,1), border-radius 0.28s cubic-bezier(0.22,1,0.36,1), border-color 0.22s, background-color 0.22s',
-          mixBlendMode: morph === 'pill' ? 'normal' : 'difference',
+            'width 0.28s cubic-bezier(0.22,1,0.36,1), height 0.28s cubic-bezier(0.22,1,0.36,1), border-radius 0.28s cubic-bezier(0.22,1,0.36,1), border-color 0.22s, background-color 0.22s, mix-blend-mode 0.22s',
+          mixBlendMode: morph === 'pill' ? 'normal' : effectiveBlendMode,
         }}
       >
         {morph === 'pill' && label && (
