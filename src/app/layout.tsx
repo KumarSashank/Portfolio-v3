@@ -62,6 +62,7 @@ export const metadata: Metadata = {
 }
 
 import CustomCursor from '@/components/layout/CustomCursor'
+import { Analytics } from '@vercel/analytics/react'
 
 export default function RootLayout({
   children,
@@ -77,6 +78,7 @@ export default function RootLayout({
         <MotionPrefsProvider>
           <CustomCursor />
           {children}
+          <Analytics />
         </MotionPrefsProvider>
       </body>
     </html>
