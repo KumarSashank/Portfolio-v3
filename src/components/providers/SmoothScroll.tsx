@@ -32,7 +32,23 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     gsap.ticker.add(update)
     gsap.ticker.lagSmoothing(0)
 
+    // Intercept internal hash links to use Lenis for smooth scrolling
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      const anchor = target.closest('a')
+      if (!anchor) return
+
+      const href = anchor.getAttribute('href')
+      if (href && href.startsWith('#') && href.length > 1) {
+        e.preventDefault()
+        lenis.scrollTo(href, { offset: -20, duration: 1.5 })
+      }
+    }
+
+    document.addEventListener('click', handleAnchorClick)
+
     return () => {
+      document.removeEventListener('click', handleAnchorClick)
       gsap.ticker.remove(update)
       lenis.destroy()
     }
