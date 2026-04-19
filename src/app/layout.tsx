@@ -30,7 +30,10 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Kumar Sashank — AI Product Engineer',
+  title: {
+    default: 'Kumar Sashank — AI Product Engineer',
+    template: '%s | Kumar Sashank',
+  },
   description:
     'AI Product Engineer building GenAI pipelines, agentic systems, and full-stack products. Founding engineer at EONVERSE, Masters at Wilfrid Laurier, IEEE-published researcher.',
   keywords: [
@@ -42,22 +45,46 @@ export const metadata: Metadata = {
     'GenAI engineer',
     'full-stack engineer',
     'founding engineer',
+    'machine learning engineer',
+    'software developer',
     'new grad software engineer Canada',
   ],
-  authors: [{ name: 'Kumar Sashank' }],
+  authors: [{ name: 'Kumar Sashank', url: siteUrl }],
   creator: 'Kumar Sashank',
+  publisher: 'Kumar Sashank',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Kumar Sashank — AI Product Engineer',
     description:
       'AI products, agentic pipelines, and research-grade engineering. Selected work by Kumar Sashank.',
-    type: 'website',
+    url: siteUrl,
     siteName: 'Kumar Sashank Portfolio',
+    locale: 'en_CA',
+    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Kumar Sashank — AI Product Engineer',
     description:
       'Portfolio showcasing AI product engineering, agentic systems, and research-backed shipped work.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 
