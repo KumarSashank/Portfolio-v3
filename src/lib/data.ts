@@ -213,6 +213,7 @@ export const projects: Project[] = [
     description:
       'An agentic media pipeline built at EONVERSE. Multiple models coordinate through a shared state layer, and a custom consistency engine keeps generated outputs stable across steps. Product details are under NDA \u2014 the architecture is not.',
     tags: ['GenAI', 'Multi-agent', 'Gemini', 'Orchestration'],
+    slug: 'multi-agent-genai',
     year: '2025',
     role: 'Architect + Engineer (EONVERSE)',
     type: 'GenAI pipeline',

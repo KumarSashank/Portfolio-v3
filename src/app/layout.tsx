@@ -61,6 +61,8 @@ export const metadata: Metadata = {
   },
 }
 
+import CustomCursor from '@/components/layout/CustomCursor'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -72,7 +74,10 @@ export default function RootLayout({
       className={`${syne.variable} ${dmMono.variable} ${fraunces.variable} antialiased`}
     >
       <body className="min-h-screen bg-ink text-paper">
-        <MotionPrefsProvider>{children}</MotionPrefsProvider>
+        <MotionPrefsProvider>
+          <CustomCursor />
+          {children}
+        </MotionPrefsProvider>
       </body>
     </html>
   )

@@ -8,16 +8,29 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const logoRef = useRef<SVGSVGElement>(null)
 
+  const completeRef = useRef(onComplete)
   useEffect(() => {
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    completeRef.current = onComplete
+  }, [onComplete])
+
+  useEffect(() => {
     const hasVisited = window.sessionStorage.getItem('portfolio-preloaded') === 'true'
-    const loadDuration = reducedMotion ? 0.3 : hasVisited ? 0.8 : 1.4
+    
+    // If the user has already seen the preloader this session, skip the animation
+    // instantly on soft forward/back navigations to prevent GSAP stalling in BFCache.
+    if (hasVisited) {
+      completeRef.current()
+      return
+    }
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const loadDuration = reducedMotion ? 0.3 : 1.4
     const exitDelay = reducedMotion ? 0 : 0.18
 
     const tl = gsap.timeline({
       onComplete: () => {
         window.sessionStorage.setItem('portfolio-preloaded', 'true')
-        onComplete()
+        completeRef.current()
       },
     })
 
@@ -61,7 +74,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
     return () => {
       tl.kill()
     }
-  }, [onComplete])
+  }, [])
 
   return (
     <div

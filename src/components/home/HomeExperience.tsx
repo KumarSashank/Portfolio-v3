@@ -5,7 +5,6 @@ import { useState } from 'react'
 import GSAPProvider from '@/components/providers/GSAPProvider'
 import SmoothScroll from '@/components/providers/SmoothScroll'
 import Preloader from '@/components/layout/Preloader'
-import CustomCursor from '@/components/layout/CustomCursor'
 import Navigation from '@/components/layout/Navigation'
 import SoundToggle from '@/components/ui/SoundToggle'
 
@@ -28,7 +27,6 @@ export default function HomeExperience() {
         <a href="#content" className="sr-only-focusable">
           Skip to content
         </a>
-        <CustomCursor />
         <Navigation />
         <SoundToggle />
 

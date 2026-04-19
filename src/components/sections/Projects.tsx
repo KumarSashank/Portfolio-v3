@@ -265,7 +265,8 @@ function ProjectVisual({ project }: { project: Project }) {
       </div>
 
       {project.slug === 'leetwrap' && <LeetWrapVisual />}
-      {project.slug === 'ai-co-investigator' && <AiCoVisual />}
+      {project.slug === 'ai-co-investigator' && <AiCoVisual accent={project.accent} />}
+      {project.slug === 'multi-agent-genai' && <GenAIVisual accent={project.accent} />}
       {project.slug === 'ai-exam-portal' && <ExamPortalVisual accent={project.accent} />}
       {project.slug === 'icho' && <IchoVisual accent={project.accent} />}
       {project.slug === 'decentralized-file-sharing' && <FileSharingVisual accent={project.accent} />}
@@ -273,15 +274,105 @@ function ProjectVisual({ project }: { project: Project }) {
   )
 }
 
-function AiCoVisual() {
+function AiCoVisual({ accent }: { accent: string }) {
   return (
-    <div className="absolute inset-3 overflow-hidden rounded-[22px] border border-[rgba(245,239,229,0.15)] md:inset-5">
-      {/* 
-        This is wired to look for /work/ai-co-investigator.png. 
-        Once you drop an image in that path in your public folder, it will instantly render here! 
-      */}
-      <img src="/work/ai-co-investigator.png" alt="AI Co-Investigator Interface" className="h-full w-full object-cover object-center" />
+    <>
+      <div className="absolute inset-[30px] rounded-[30px] border border-[rgba(245,239,229,0.04)]" />
+      <div className="absolute inset-[60px] rounded-[20px] border border-[rgba(245,239,229,0.02)]" />
+
+      {/* Central Processor Node (AI Agent) */}
+      <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100px] h-[100px] md:w-[130px] md:h-[130px] rounded-[24px] border border-[rgba(245,239,229,0.12)] bg-[rgba(10,14,22,0.9)] shadow-[0_30px_60px_rgba(0,0,0,0.6)] flex items-center justify-center z-10">
+        <div className="absolute w-[60%] h-[60%] rounded-full border border-dashed border-[rgba(245,239,229,0.2)] animate-[spin_10s_linear_infinite]" />
+        <div className="absolute w-[40%] h-[40%] rounded-full border border-[rgba(245,239,229,0.1)] animate-[spin_14s_linear_infinite_reverse]" />
+        <div className="w-3 h-3 md:w-4 md:h-4 rounded-full" style={{ background: accent, boxShadow: `0 0 30px ${accent}` }} />
+        
+        <div className="absolute -top-8 font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-[rgba(245,239,229,0.35)]">
+          Agent Core
+        </div>
+      </div>
+
+      {/* Vertical datalink from Query */}
+      <div className="absolute top-0 left-1/2 w-px h-[40%] bg-[linear-gradient(180deg,transparent,rgba(245,239,229,0.15))]" />
+
+      {/* Query Bar at very top */}
+      <div className="absolute top-8 md:top-12 left-1/2 -translate-x-1/2 w-[70%] md:w-[50%] h-10 rounded-full border border-[rgba(245,239,229,0.08)] bg-[rgba(255,255,255,0.04)] backdrop-blur-md flex items-center px-4 md:px-5 gap-3 shadow-[0_10px_30px_rgba(0,0,0,0.3)] z-10">
+        <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: accent }} />
+        <div className="h-1.5 w-[40%] rounded-full bg-[rgba(245,239,229,0.15)]" />
+      </div>
+
+      {/* Horizontal Data Bus to BigQuery */}
+      <div className="absolute top-[72%] left-[15%] right-[15%] h-px bg-[linear-gradient(90deg,transparent,rgba(245,239,229,0.1),transparent)]" />
+      
+      {/* 3 BigQuery Data blocks resting on the bus */}
+      <div className="absolute top-[72%] left-[15%] -translate-y-full pb-3">
+        <DataBlock accent={accent} fill={30} label="BQ-01" />
+      </div>
+      <div className="absolute top-[72%] left-1/2 -translate-x-1/2 -translate-y-full pb-3">
+        <DataBlock accent={accent} fill={85} label="BQ-02" />
+      </div>
+      <div className="absolute top-[72%] right-[15%] flex justify-end -translate-y-full pb-3">
+        <DataBlock accent={accent} fill={50} label="BQ-03" />
+      </div>
+
+      {/* Vertical connectors drop from Center to Bus */}
+      <div className="absolute top-[40%] left-[15%] w-px h-[32%] bg-[linear-gradient(180deg,rgba(245,239,229,0.08),transparent)]" />
+      <div className="absolute top-[40%] left-1/2 w-px h-[32%] bg-[linear-gradient(180deg,rgba(245,239,229,0.15),transparent)]" />
+      <div className="absolute top-[40%] right-[15%] w-px h-[32%] bg-[linear-gradient(180deg,rgba(245,239,229,0.08),transparent)]" />
+
+      {/* Output Synthesis Block at very bottom */}
+      <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3 rounded-[12px] border border-[rgba(245,239,229,0.1)] bg-[rgba(10,14,22,0.9)] flex items-center gap-3 backdrop-blur-md shadow-[0_15px_30px_rgba(0,0,0,0.5)] z-10 w-max max-w-[80%]">
+        <div className="w-1.5 h-1.5 rounded-full" style={{ background: accent, boxShadow: `0 0 10px ${accent}` }} />
+        <div className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-[rgba(245,239,229,0.85)] truncate">
+          Synthesizing Insights
+        </div>
+      </div>
+    </>
+  )
+}
+
+function DataBlock({ accent, fill, label }: { accent: string; fill: number; label: string }) {
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="w-[45px] h-[40px] md:w-[60px] md:h-[50px] rounded-[10px] border border-[rgba(245,239,229,0.1)] bg-[rgba(10,14,22,0.6)] backdrop-blur-md p-[3px] flex flex-col justify-end">
+        <div className="w-full rounded-sm transition-all duration-1000" style={{ height: `${fill}%`, background: accent, opacity: 0.7 }} />
+      </div>
+      <div className="font-mono text-[8px] uppercase tracking-widest text-[rgba(245,239,229,0.3)]">{label}</div>
     </div>
+  )
+}
+
+function GenAIVisual({ accent }: { accent: string }) {
+  return (
+    <>
+      {/* Concentric rings */}
+      <div className="absolute left-1/2 top-[40%] h-[240px] w-[240px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(245,239,229,0.05)] md:h-[320px] md:w-[320px]" />
+      <div className="absolute left-1/2 top-[40%] h-[160px] w-[160px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(245,239,229,0.08)] md:h-[200px] md:w-[200px]" />
+      
+      {/* 3 orbital agent nodes */}
+      <div className="absolute top-[20%] left-[25%] w-14 h-14 rounded-[16px] border border-[rgba(245,239,229,0.12)] bg-[rgba(255,255,255,0.03)] backdrop-blur-md flex items-center justify-center shadow-[0_0_40px_rgba(211,178,108,0.1)]">
+        <div className="w-1.5 h-1.5 rounded-full" style={{ background: accent }} />
+      </div>
+
+      <div className="absolute top-[35%] right-[20%] w-16 h-16 rounded-[18px] border border-[rgba(245,239,229,0.15)] bg-[rgba(255,255,255,0.04)] backdrop-blur-md flex items-center justify-center shadow-[0_0_60px_rgba(211,178,108,0.15)]">
+        <div className="w-2 h-2 rounded-full" style={{ background: accent }} />
+      </div>
+
+      <div className="absolute bottom-[35%] left-[30%] w-[72px] h-[72px] rounded-[20px] border border-[rgba(245,239,229,0.18)] bg-[rgba(255,255,255,0.05)] backdrop-blur-md flex items-center justify-center shadow-[0_0_80px_rgba(211,178,108,0.2)]">
+        <div className="w-2.5 h-2.5 rounded-full" style={{ background: accent, boxShadow: `0 0 20px ${accent}` }} />
+      </div>
+      
+      {/* Shared state engine box at bottom */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full border border-[rgba(245,239,229,0.12)] bg-[rgba(10,14,22,0.8)] shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-md text-[10px] font-mono text-[rgba(245,239,229,0.6)] tracking-widest uppercase">
+        State Consistency Engine
+      </div>
+      
+      {/* Connecting beams */}
+      <svg className="absolute inset-0 h-full w-full pointer-events-none" aria-hidden>
+        <path d="M120 120 Q 250 100 320 160" stroke={accent} strokeOpacity="0.2" fill="none" strokeDasharray="4 6" />
+        <path d="M120 120 Q 150 250 200 300" stroke={accent} strokeOpacity="0.3" fill="none" strokeDasharray="4 6" />
+        <path d="M320 160 Q 280 280 200 300" stroke={accent} strokeOpacity="0.4" fill="none" strokeDasharray="4 6" />
+      </svg>
+    </>
   )
 }
 
